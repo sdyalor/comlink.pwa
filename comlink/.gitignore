@@ -2,5 +2,4 @@
 *.swp
 node_modules
 *.bak
-dist
 .*_cache*
