@@ -1,0 +1,78 @@
+Arguments: 
+  /home/sdyalor/.nvm/versions/node/v13.0.1/bin/node /usr/share/yarn/bin/yarn.js install
+
+PATH: 
+  /home/sdyalor/.wasmtime/bin:/home/sdyalor/Android/Sdk/tools:/home/sdyalor/development/flutter/bin:/home/sdyalor/.android-studio/bin:/home/sdyalor/.sdkman/candidates/gradle/current/bin:/home/sdyalor/.yarn/bin:/home/sdyalor/.pyenv/plugins/pyenv-virtualenv/shims:/home/sdyalor/.pyenv/shims:/home/sdyalor/.pyenv/bin:/home/sdyalor/.nvm/versions/node/v13.0.1/bin:/home/sdyalor/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/sdyalor/dotnet:/usr/lib/jvm/java-12-oracle/bin:/usr/lib/jvm/java-12-oracle/db/bin:/home/sdyalor/.cargo/bin
+
+Yarn version: 
+  1.19.1
+
+Node version: 
+  13.0.1
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: connect ECONNREFUSED 127.0.0.1:8081
+      at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1129:14)
+
+npm manifest: 
+  {
+    "name": "comlink",
+    "version": "4.1.0",
+    "description": "Comlink makes WebWorkers enjoyable",
+    "main": "dist/umd/comlink.js",
+    "module": "dist/esm/comlink.mjs",
+    "types": "dist/umd/comlink.d.ts",
+    "scripts": {
+      "build": "rollup -c",
+      "test:unit": "karma start",
+      "test:types": "tsc -t esnext -m esnext --lib esnext,dom --moduleResolution node --noEmit tests/type-checks.ts",
+      "test": "npm run fmt_test && npm run build && npm run test:types && npm run test:unit",
+      "fmt": "prettier --write ./*.{mjs,js,ts,md,json,html} ./{src,docs,tests}/**/*.{mjs,js,ts,md,json,html}",
+      "fmt_test": "test $(prettier -l ./*.{mjs,js,ts,md,json,html} ./{src,docs,tests}/**/*.{mjs,js,ts,md,json,html} | wc -l) -eq 0",
+      "watchtest": "CHROME_ONLY=1 karma start --no-single-run"
+    },
+    "husky": {
+      "hooks": {
+        "pre-commit": "npm test"
+      }
+    },
+    "author": {
+      "name": "Surma",
+      "email": "surma@google.com"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/GoogleChromeLabs/comlink.git"
+    },
+    "license": "Apache-2.0",
+    "devDependencies": {
+      "chai": "4.2.0",
+      "conditional-type-checks": "1.0.1",
+      "husky": "3.0.9",
+      "karma": "4.4.1",
+      "karma-chai": "0.1.0",
+      "karma-chrome-launcher": "3.1.0",
+      "karma-detect-browsers": "2.3.3",
+      "karma-firefox-launcher": "1.2.0",
+      "karma-mocha": "1.3.0",
+      "karma-safari-launcher": "1.0.0",
+      "karma-safaritechpreview-launcher": "2.0.2",
+      "mocha": "6.2.2",
+      "prettier": "1.18.2",
+      "rimraf": "3.0.0",
+      "rollup": "1.26.2",
+      "rollup-plugin-terser": "5.1.2",
+      "rollup-plugin-typescript2": "0.24.3",
+      "typescript": "3.6.4"
+    },
+    "dependencies": {}
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

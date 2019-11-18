@@ -51,7 +51,7 @@ module.exports = {
         test: /\.(ts|js|mjs)x?$/,
         exclude: [
           /@babel(?:\/|\\{1,2})runtime|core-js/,
-          /canvas-datagrid/,
+          /regenerator-runtime/,
           /proxy-polyfill/
         ],
         use: [
@@ -71,21 +71,11 @@ module.exports = {
       {
         test: /\.html$/,
         loader: 'html-loader'
-      },
-      // {
-      //   test: /\.worker\.ts$/,
-      //   use: {
-      //     loader: 'worker-loader',
-      //     // options: { inline: true, fallback: false }
-      //   }
-      // }
+      }
     ]
   },
   resolve: {
     extensions
-    // alias: {
-    //   // "proxy-polyfill": path.resolve(__dirname, "node_modules/proxy-polyfill/proxy.min.js"),
-    // }
   },
   plugins: [
     new CopyWebpackPlugin([

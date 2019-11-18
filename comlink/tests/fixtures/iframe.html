@@ -1,6 +1,5 @@
-<script src='/base/tests/prelude.js'></script>
-<script src='/base/comlink.js'></script>
-<script src='/base/tests/comlink_postlude.js'></script>
-<script>
-  Comlink.expose((a, b) => a + b, self.parent);
+<script type="module">
+  import * as Comlink from "/base/dist/esm/comlink.mjs";
+
+  Comlink.expose((a, b) => a + b, Comlink.windowEndpoint(self.parent));
 </script>

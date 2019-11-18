@@ -13,55 +13,56 @@
 
 module.exports = function(config) {
   const configuration = {
-      basePath: '',
-      frameworks: ['mocha', 'chai', 'karma-typescript'],
-      files: [
-        {
-          pattern: 'tests/fixtures/*',
-          included: false,
-        },
-        'tests/prelude.js',
-        'comlink.ts',
-        'tests/comlink_postlude.js',
-        'messagechanneladapter.ts',
-        'tests/messagechanneladapter_postlude.js',
-        'tests/*.test.js',
-      ],
-      preprocessors: {
-        '*.ts': ['karma-typescript'],
+    basePath: "",
+    frameworks: ["mocha", "chai", "detectBrowsers"],
+    files: [
+      {
+        pattern: "tests/fixtures/*",
+        included: false
       },
-      karmaTypescriptConfig: {
-        tsconfig: './tsconfig.json',
-        coverageOptions: {
-          instrumentation: false,
-        },
+      {
+        pattern: "dist/**/*.@(mjs|js)",
+        included: false
       },
-      reporters: ['progress', 'karma-typescript'],
-      port: 9876,
-      colors: true,
-      logLevel: config.LOG_INFO,
-      autoWatch: true,
-      singleRun: true,
-      concurrency: Infinity,
-      browsers: ['Chrome', 'ChromeCanaryHarmony', 'Firefox', 'Safari'],
-      customLaunchers: {
-        ChromeCanaryHarmony: {
-          base: 'ChromeCanary',
-          flags: ['--js-flags=--harmony'],
-        },
-        ChromeCanaryHeadlessHarmony: {
-          base: 'ChromeCanary',
-          flags: ['--js-flags=--harmony', /* '--headless', */ '--disable-gpu'],
-        },
-        DockerChrome: {
-            base: 'ChromeHeadless',
-            flags: ['--no-sandbox'],
-        },
-      },
-    };
+      {
+        pattern: "tests/*.test.js",
+        type: "module"
+      }
+    ],
+    reporters: ["progress"],
+    port: 9876,
+    colors: true,
+    logLevel: config.LOG_INFO,
+    autoWatch: true,
+    singleRun: true,
+    concurrency: Infinity,
+    detectBrowsers: {
+      enabled: true,
+      usePhantomJS: false,
+      preferHeadless: true,
+      postDetection: availableBrowsers => {
+        if (process.env.INSIDE_DOCKER) {
+          return ["DockerChrome"];
+        } else if (process.env.CHROME_ONLY) {
+          return ["SafariTechPreview"];
+        } else {
+          // Filtering SafariTechPreview because I am having
+          // local issues and I have no idea how to fix them.
+          // I know that’s not a good reason to disable tests,
+          // but Safari TP is relatively unimportant.
+          return availableBrowsers.filter(
+            browser => browser !== "SafariTechPreview"
+          );
+        }
+      }
+    },
+    customLaunchers: {
+      DockerChrome: {
+        base: "ChromeHeadless",
+        flags: ["--no-sandbox"]
+      }
+    }
+  };
 
-    if (process.env.INSIDE_DOCKER)
-      configuration.browsers = ['DockerChrome'];
-
-    config.set(configuration);
+  config.set(configuration);
 };
